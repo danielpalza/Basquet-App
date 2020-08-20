@@ -1,3 +1,2 @@
-# Manejo de equipos
-
-Pagina para el control y manejo de tareas de equipos.
+# Basquet-App
+Dashboard para el manejo de estadísticas de partidos de basquet.

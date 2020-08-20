@@ -13,7 +13,7 @@ const LoginBox = (props) => {
   const classes = useStyle();
   const [user, setUser] = useState({
     body: { email: '', password: '' },
-    use: ['users', 'login'],
+    use: ['coach', 'login'],
     mod: 'POST',
     action: 'USER_LOGIN',
   });

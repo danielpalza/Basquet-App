@@ -8,6 +8,6 @@ const coachSchema = new Schema({
   lastName: { type: String, required: true }
 });
 
-const model = mongoose.model('Coach', userSchema);
+const model = mongoose.model('Coach', coachSchema);
 
 module.exports = model ;

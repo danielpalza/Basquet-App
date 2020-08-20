@@ -10,6 +10,6 @@ const tiroSchema = new Schema({
 
 },{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
-const model = mongoose.model('Tiro', equipmentSchema);
+const model = mongoose.model('Tiro', tiroSchema);
 
 module.exports = model;

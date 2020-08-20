@@ -29,6 +29,7 @@ const useStyle = makeStyles((theme) => ({
 function Login(props) {
   const [ruta, setRuta] = useState('LOGIN');
   const classes = useStyle();
+
   // Manejo de faltas
   function handleClick(text) {
     props.messageIn(text);
@@ -46,26 +47,6 @@ function Login(props) {
       handleClick({ message: 'Ingrese un email valido' });
     }
   }
-
-  async function readToken(token) {
-    const myInit = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        token: token,
-      },
-    };
-
-    await fetch('/api/v1/users/authToken', myInit)
-      .then((res) => res.json())
-      .then((data) => props.login(data))
-      .catch((e) => {
-        console.log({ Status: 'ERROR_TOKEN', message: e });
-      });
-  }
-  useEffect(() => {
-    localStorage.getItem('token') && readToken(localStorage.getItem('token'));
-  }, []);
 
   return (
     <Box className={classes.root}>

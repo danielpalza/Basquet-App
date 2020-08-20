@@ -5,60 +5,103 @@ import {
   Toolbar,
   IconButton,
   Typography,
+  MenuItem,
+  MenuList,
+  Popper,
+  Paper,
+  Grow,
+  ClickAwayListener,
+  Button
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Basketball from "./Icons/basketball.svg"
+import Jersey from "./Icons/jersey.svg"
 import clsx from 'clsx';
 
 const drawerWidth = 240;
 
 const useStyle = makeStyles((theme) => ({
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
   menuButton: {
     marginRight: 36,
   },
   hide: {
     display: 'none',
   },
+  title: {
+   flexGrow: 1,
+ },
+ button:{
+   margin:"1vw"
+ }
+
+
+
 }));
 
 const Barra = (props) => {
+
+  console.log("barra props:", props)
   const classes = useStyle();
+  const anchorRef = React.useRef(null);
+
+  const handleClose = ()=>{
+    props.handleDrawer()
+  }
+
   return (
-    <AppBar
-      position="fixed"
-      className={clsx(classes.appBar, {
-        [classes.appBarShift]: props.val,
-      })}
-    >
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={props.handleDrawerOpen}
-          edge="start"
-          className={clsx(classes.menuButton, {
-            [classes.hide]: props.val,
-          })}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" noWrap>
-          Manejo Equipos
+    <AppBar  position="fixed" >
+      <Toolbar >
+          <div>
+              <IconButton
+                ref={anchorRef}
+                aria-controls={props.val ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                onClick={props.handleDrawer}
+                edge="start"
+              >
+              <AccountCircle />
+              </IconButton>
+              <Popper open={props.val} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleClose}>
+                        <MenuList autoFocusItem={props.val} id="menu-list-grow" >
+
+                          <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </div>
+        <Typography variant="h6" className={classes.title}  >
+          Panel de control
         </Typography>
+
+        <div>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            startIcon={<img src={Basketball} height={40} width={45}/>}
+          >
+            Nuevo tiro
+          </Button>
+
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            startIcon={<img src={Jersey} height={40} width={45}/>}
+          >
+            Nuevo jugador
+          </Button>
+        </div>
       </Toolbar>
     </AppBar>
   );

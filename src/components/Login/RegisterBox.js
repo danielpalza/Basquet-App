@@ -15,7 +15,7 @@ const RegisterBox = (props) => {
   const [message, setMessage] = useState('');
   const [user, setUser] = useState({
     body: { email: '', password: '', confirmacion: '', name: '', lastName: '' },
-    use: ['users', 'createUser'],
+    use: ['coach', 'createCoach'],
     mod: 'POST',
     action: 'MESSAGE_IN',
   });

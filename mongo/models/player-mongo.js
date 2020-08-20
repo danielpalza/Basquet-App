@@ -9,6 +9,6 @@ const playerSchema = new Schema({
 
 },{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
-const model = mongoose.model('Player', equipmentSchema);
+const model = mongoose.model('Player', playerSchema);
 
 module.exports = model;

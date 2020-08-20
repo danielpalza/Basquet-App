@@ -1,7 +1,6 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
-import Delete from './Delete';
-import Update from './Update';
+
 import { makeStyles, IconButton } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../../store/stats/reducer';

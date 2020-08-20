@@ -11,10 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Snack from '../Snack';
 import Fetch from '../Fetch';
 import Barra from './Barra';
-import Caja from '../Navbar/Caja';
-import Agregar from './Agregar';
-import Update from './Update';
-import Delete from './Delete';
+
 import Table from './Table';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../../store/stats/reducer';
@@ -52,13 +49,10 @@ function Main(props) {
     setRuta(prop);
   };
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleDrawer = () => {
+    setOpen(!open);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   //cierre de sesion
   const handleCloseSession = () => {
@@ -73,19 +67,13 @@ function Main(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Barra handleDrawerOpen={handleDrawerOpen} val={open} />
-      <Caja
-        handleRoute={handleRoute}
-        handleDrawerClose={handleDrawerClose}
-        val={open}
-      />
+      <Barra handleDrawer={handleDrawer} val={open} />
+
 
       <Box className={classes.content}>
         <Box className={classes.toolbar}></Box>
 
         <Box>
-          <Table />
-          <Agregar action={props} open={ruta==="AGREGAR"?true:false} setRuta={handleRoute} />
         </Box>
       </Box>
     </div>

@@ -28,6 +28,7 @@
     "redux": "^4.0.5",
     "smart-react-components": "^1.8.0",
     "styled-components": "^5.1.1",
+    "svg-inline-loader": "^0.8.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
@@ -43,6 +44,7 @@
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "svg-url-loader": "^6.0.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
   }

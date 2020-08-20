@@ -8,9 +8,7 @@ import { mapStateToProps } from '../store/stats/reducer';
 import { mapDispatchToProps } from '../store/stats/actions';
 
 function Snack(props) {
-  console.log('props snack:', props);
   let message = props.state.statReducer.message;
-  console.log('snack message:', message);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {

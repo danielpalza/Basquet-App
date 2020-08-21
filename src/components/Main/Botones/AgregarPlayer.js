@@ -10,8 +10,19 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(2),
-      width: '25ch',
+
     },
+  },
+  box:{
+    display:"flex",
+    flexDirection:"column",
+    justifyContent:"center",
+    padding:"0.3vw",
+    '& > *': {
+      margin: theme.spacing(2),
+
+    },
+
   },
 }));
 
@@ -34,10 +45,6 @@ function AgregarPlayer(props) {
         setPlayer({ ...player, legajo: event.target.value });
   };
 
-  const HandleRoute = () => {
-    props.setRuta('');
-  };
-
   const CargarPlayer = () => {
     const state = {
       body: { ...player},
@@ -55,10 +62,11 @@ function AgregarPlayer(props) {
   return (
     <Dialog
       open={props.open}
-      onClose={HandleRoute}
+      onClose={()=>props.handleRoute("")}
       aria-labelledby="simple-dialog-title"
     >
-      <div className={classes.root}>
+    <div className={classes.root}>
+      <div className={classes.box}>
         <TextField
           id="filled-basic"
           name="fistName"
@@ -66,6 +74,7 @@ function AgregarPlayer(props) {
           variant="filled"
           onChange={handleChange}
         />
+
         <TextField
           id="filled-basic"
           name="lastName"
@@ -81,12 +90,12 @@ function AgregarPlayer(props) {
           onChange={handleChange}
         />
       </div>
-      <div className={classes.root}>
+      <div className={classes.box}>
         <Button
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
-          onClick={AgregarEquipo}
+          onClick={CargarPlayer}
         >
           Agregar
         </Button>
@@ -94,10 +103,11 @@ function AgregarPlayer(props) {
           variant="contained"
           color="secondary"
           startIcon={<DeleteIcon />}
-          onClick={HandleRoute}
+          onClick={()=>props.handleRoute("")}
         >
           Cancelar
         </Button>
+      </div>
       </div>
     </Dialog>
   );

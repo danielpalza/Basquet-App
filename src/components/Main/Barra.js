@@ -71,7 +71,7 @@ const Barra = (props) => {
                       <ClickAwayListener onClickAway={handleClose}>
                         <MenuList autoFocusItem={props.val} id="menu-list-grow" >
 
-                          <MenuItem onClick={handleClose}>Logout</MenuItem>
+                          <MenuItem onClick={props.handleCloseSession}>Cerrar sesion</MenuItem>
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>
@@ -86,6 +86,7 @@ const Barra = (props) => {
         <div>
           <Button
             className={classes.button}
+            onClick={()=>props.handleRoute("TIRO")}
             variant="contained"
             color="primary"
             startIcon={<img src={Basketball} height={40} width={45}/>}
@@ -95,6 +96,8 @@ const Barra = (props) => {
 
           <Button
             className={classes.button}
+            
+            onClick={()=>props.handleRoute("PLAYER")}
             variant="contained"
             color="primary"
             startIcon={<img src={Jersey} height={40} width={45}/>}

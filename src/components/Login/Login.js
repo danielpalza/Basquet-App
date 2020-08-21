@@ -16,7 +16,7 @@ const useStyle = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#3B3B54',
+    background: 'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(176,97,48,1) 88%)',
     height: '100vh',
     width: '100vw',
   },
@@ -49,7 +49,7 @@ function Login(props) {
   }
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} >
       <Box className={classes.boxLogin}>
         {ruta === 'LOGIN' ? (
           <LoginBox

@@ -5,14 +5,13 @@ import {
   CssBaseline,
   Box,
   Snackbar,
+  IconButton
 } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Snack from '../Snack';
-import Fetch from '../Fetch';
 import Barra from './Barra';
-
-import Table from './Table';
+import PieChart from "./Graficos/PieChart"
+import AgregarPlayer from "./Botones/AgregarPlayer"
+import AgregarTiro from "./Botones/AgregarTiro"
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../../store/stats/reducer';
 import { mapDispatchToProps } from '../../store/stats/actions';
@@ -43,7 +42,7 @@ function Main(props) {
 
   const [open, setOpen] = useState(false);
   const [ruta, setRuta] = useState('');
-
+  console.log("ruta:",ruta)
   //Metodos
   const handleRoute = (prop) => {
     setRuta(prop);
@@ -67,12 +66,12 @@ function Main(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Barra handleDrawer={handleDrawer} val={open} />
-
-
+      <Barra handleCloseSession={handleCloseSession} handleRoute={handleRoute} handleDrawer={handleDrawer} val={open} />
+      <AgregarTiro open={ruta=="TIRO"} handleRoute={handleRoute}/>
+      <AgregarPlayer  open={ruta=="PLAYER"} handleRoute={handleRoute} />
       <Box className={classes.content}>
         <Box className={classes.toolbar}></Box>
-
+          <PieChart/>
         <Box>
         </Box>
       </Box>

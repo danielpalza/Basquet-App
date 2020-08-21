@@ -1,6 +1,5 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
-
 import { makeStyles, IconButton } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../../store/stats/reducer';
@@ -8,7 +7,6 @@ import { mapDispatchToProps } from '../../store/stats/actions';
 
 import {DeleteOutline} from '@material-ui/icons/DeleteOutline';
 import {Edit} from '@material-ui/icons/Edit';
-
 import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';

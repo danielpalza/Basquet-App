@@ -1,6 +1,7 @@
 const iniState = {
-  equipments: [],
-  user: { username: '', token: '' },
+  players: [],
+  tiros:[],
+  user: { username: '' , token: '' },
   body: {},
   fetch: false,
   reload: true,
@@ -27,12 +28,20 @@ export default function Reducer(state = iniState, action) {
     });
   }
 
-  // Carga de objetos
-
-  if (action.type === 'EQUIPMENT_LOAD') {
+  //Carga de tiros
+  if (action.type === 'TIRO_LOAD') {
     return Object.assign({}, state, {
       ...state,
-      equipments: action.stat.data,
+      tiros: action.stat.data,
+    });
+  }
+
+  // Carga de jugadores
+
+  if (action.type === 'PLAYER_LOAD') {
+    return Object.assign({}, state, {
+      ...state,
+      players: action.stat.data,
     });
   }
   if (action.type === 'RELOAD_TRUE') {

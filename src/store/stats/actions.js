@@ -15,12 +15,22 @@ export function userOutSession(stat) {
   };
 }
 
-//Carga objetos
+//Carga tiros
 
-export function equipmentLoad(stat) {
+export function tiroLoad(stat) {
   console.log(stat);
   return {
-    type: 'EQUIPMENT_LOAD',
+    type: 'TIRO_LOAD',
+    stat,
+  };
+}
+
+//Carga jugadores
+
+export function playerLoad(stat) {
+  console.log(stat);
+  return {
+    type: 'PLAYER_LOAD',
     stat,
   };
 }
@@ -78,7 +88,8 @@ export function ldBody(stat) {
 export const mapDispatchToProps = (dispatch) => ({
   login: (stat) => dispatch(userLogin(stat)),
   unLogin: () => dispatch(userOutSession()),
-  equipLoad: (stat) => dispatch(equipmentLoad(stat)),
+  playerLoad: (stat) => dispatch(playerLoad(stat)),
+  tiroLoad: (stat) => dispatch(tiroLoad(stat)),
   reloadTrue: () => dispatch(reTrue()),
   reloadFalse: () => dispatch(reFalse()),
   messageIn: (stat) => dispatch(meIn(stat)),

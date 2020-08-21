@@ -10,12 +10,23 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(2),
-      width: '25ch',
+
     },
   },
+  box:{
+    display:"flex",
+    justifyContent:"center",
+    padding:"0.3vw",
+    '& > *': {
+      margin: theme.spacing(2),
+
+    },
+
+  },
+
 }));
 
-let posiciones={
+let posiciones=[
   {
     value:"puntaIzq",
     label:"Punta izquierda"
@@ -36,11 +47,12 @@ let posiciones={
     value:"frente",
     label:"Frente"
   },
-}
+]
 
 //Funcion agregar
 
 function AgregarTiro(props) {
+  console.log("agregar tiro props:",props)
   const classes = useStyles();
   const [tiro,  setTiro] = useState({
     tirador: '',
@@ -55,17 +67,13 @@ function AgregarTiro(props) {
       event.target.name === 'distanciaM' &&
         setTiro({ ...tiro, distanciaM: event.target.value });
         event.target.name === 'encesto' &&
-          setTiro({ ...tiro, encesto: !encesto });
+          setTiro({ ...tiro, encesto: !tiro.encesto });
           event.target.name === 'posicion' &&
             setTiro({ ...tiro, posicion: event.target.value });
 
   };
 
-  const HandleRoute = () => {
-    props.setRuta('');
-  };
-
-  const CargarTiro = () => {
+    const CargarTiro = () => {
     const state = {
       body: { ...tiro},
       use: ['tiro', 'createTiro'],
@@ -82,10 +90,11 @@ function AgregarTiro(props) {
   return (
     <Dialog
       open={props.open}
-      onClose={HandleRoute}
+      onClose={()=>props.handleRoute("")}
       aria-labelledby="simple-dialog-title"
     >
-      <div className={classes.root}>
+    <div className={classes.root}>
+      <div className={classes.box}>
         <TextField
           id="filled-basic"
           name="tirador"
@@ -102,29 +111,31 @@ function AgregarTiro(props) {
           onChange={handleChange}
         />
 
-        <FormControlLabel
-       control={<Checkbox checked={tiro.encesto} onChange={handleChange} name="encesto" />}
-       label="¿El tiro encesto?"
-       />
+
       </div>
+      <div  className={classes.box}>
+          <FormControlLabel
+         control={<Checkbox checked={tiro.encesto} onChange={handleChange} name="encesto" />}
+         label="¿El tiro encesto?"
+         />
 
-      <TextField
-          id="standard-select-mes"
-          select
-          name="posicion"
-          label="Posicion"
-          value={tiro.posicion}
-          onChange={handleChange}
-          helperText="Seleccione la posicion"
-        >
-          {posiciones.map((e) => (
-            <MenuItem key={e.value} value={e.value}>
-              {e.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-      <div className={classes.root}>
+         <TextField
+             id="standard-select-mes"
+             select
+             name="posicion"
+             label="Posicion"
+             value={tiro.posicion}
+             onChange={handleChange}
+             helperText="Seleccione la posicion"
+           >
+             {posiciones.map((e) => (
+               <MenuItem key={e.value} value={e.value}>
+                 {e.label}
+               </MenuItem>
+             ))}
+           </TextField>
+      </div>
+      <div className={classes.box}>
         <Button
           variant="contained"
           color="primary"
@@ -137,10 +148,11 @@ function AgregarTiro(props) {
           variant="contained"
           color="secondary"
           startIcon={<DeleteIcon />}
-          onClick={HandleRoute}
+          onClick={()=>props.handleRoute("")}
         >
           Cancelar
         </Button>
+      </div>
       </div>
     </Dialog>
   );

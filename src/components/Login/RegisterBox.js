@@ -37,7 +37,7 @@ const RegisterBox = (props) => {
     <div>
       <Box className={classes.boxText} m={3}>
         <TextField
-          id="standard-basic"
+          id="email"
           color="primary"
           label="Email"
           onChange={(e) => {
@@ -51,7 +51,7 @@ const RegisterBox = (props) => {
       <Box display="flex">
         <Box className={classes.boxText} m={3}>
           <TextField
-            id="standard-basic"
+            id="contraseña"
             color="primary"
             type="password"
             label="Contraseña"
@@ -65,7 +65,7 @@ const RegisterBox = (props) => {
         </Box>
         <Box className={classes.boxText} m={3}>
           <TextField
-            id="standard-basic"
+            id="confirmacion"
             color="primary"
             type="password"
             label="Confirmación"
@@ -81,7 +81,7 @@ const RegisterBox = (props) => {
       <Box display="flex">
         <Box className={classes.boxText} m={3}>
           <TextField
-            id="standard-basic"
+            id="nombre"
             color="primary"
             label="Nombre"
             onChange={(e) => {
@@ -94,7 +94,7 @@ const RegisterBox = (props) => {
         </Box>
         <Box className={classes.boxText} m={3}>
           <TextField
-            id="standard-basic"
+            id="apellido"
             color="primary"
             label="Apellido"
             onChange={(e) => {

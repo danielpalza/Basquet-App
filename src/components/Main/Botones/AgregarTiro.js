@@ -141,7 +141,7 @@ function AgregarTiro(props) {
       <div className={classes.root}>
         <div className={classes.box}>
           <TextField
-            id="standard-select-mes"
+            id="tirador"
             select
             name="tirador"
             label="Tirador"
@@ -157,7 +157,7 @@ function AgregarTiro(props) {
           </TextField>
 
           <TextField
-            id="filled-basic"
+            id="distancia"
             name="distanciaM"
             label="Distancia en metros"
             variant="filled"
@@ -177,7 +177,7 @@ function AgregarTiro(props) {
           />
 
           <TextField
-            id="standard-select-mes"
+            id="posicion"
             select
             name="posicion"
             label="Posicion"

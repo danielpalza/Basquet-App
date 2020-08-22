@@ -81,7 +81,7 @@ function AgregarPlayer(props) {
       <div className={classes.root}>
         <div className={classes.box}>
           <TextField
-            id="filled-basic"
+            id="nombre"
             name="firstName"
             label="Nombre"
             variant="filled"
@@ -89,14 +89,14 @@ function AgregarPlayer(props) {
           />
 
           <TextField
-            id="filled-basic"
+            id="apellido"
             name="lastName"
             label="Apellido"
             variant="filled"
             onChange={handleChange}
           />
           <TextField
-            id="filled-basic"
+            id="legajo"
             name="legajo"
             label="Legajo"
             variant="filled"

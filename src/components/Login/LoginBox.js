@@ -32,7 +32,7 @@ const LoginBox = (props) => {
     <div>
       <Box className={classes.boxText} m={3}>
         <TextField
-          id="standard-basic"
+          id="email"
           color="primary"
           label="Email"
           onChange={(e) => {
@@ -45,7 +45,7 @@ const LoginBox = (props) => {
       </Box>
       <Box className={classes.boxText} m={3}>
         <TextField
-          id="standard-basic"
+          id="password"
           color="primary"
           type="password"
           label="Contraseña"

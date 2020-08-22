@@ -18,8 +18,11 @@ function Fetch(props) {
     case 'USER_OUT':
       action = props.unLogin;
       break;
-    case 'EQUIPMENT_LOAD':
-      action = props.equipLoad;
+    case 'PLAYER_LOAD':
+      action = props.playerLoad;
+      break;
+    case 'TIRO_LOAD':
+      action = props.tiroLoad;
       break;
     case 'RELOAD_TRUE':
       action = props.reloadTrue;
@@ -46,7 +49,7 @@ function Fetch(props) {
 
   //Funcion asincrona
   async function Fetching() {
-      /**User routes */
+    /**User routes */
     const urlUse = `api/v1/${body.use[0]}/${body.use[1]}`;
 
     // arreglar fallas en envios
@@ -72,7 +75,7 @@ function Fetch(props) {
       urlUse,
       body.mod === 'POST' ? myInitPost : myInitGet
     );
-
+      console.log("Fetch:" , props)
     await fetch(myRequest)
       .then((res) => res.json())
       .then((data) => {

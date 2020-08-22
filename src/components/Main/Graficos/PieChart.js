@@ -1,10 +1,10 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { mapStateToProps } from '../../store/stats/reducer';
-import { mapDispatchToProps } from '../../store/stats/actions';
-import Chart from "react-apexcharts";
-
+import { mapStateToProps } from '../../../store/stats/reducer';
+import { mapDispatchToProps } from '../../../store/stats/actions';
+import { Paper } from '@material-ui/core';
+import Charts from 'react-apexcharts';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -13,42 +13,32 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 function PieChart(props) {
+  console.log('props piechart:', props);
+  let ver = props.state.tiros.encestos[0] + props.state.tiros.encestos[1];
   const classes = useStyle();
-  const [body, setBody] = useState({
-    body: {},
-    use: ['tiro', 'getAllTiro'],
-    mod: 'GET',
-    action: 'TIRO_LOAD',
-    token: props.state.statReducer.user.token,
-  });
-
-  if (props.state.statReducer.reload) {
-    props.loadBody(body);
-    props.fetchTrue();
-    props.reloadFalse();
-  }
-
-  let serie = props.state.statReducer.tiros;
-  let label = "Tiros";
+  console.log('ver:', ver);
+  let serie = ver === 0 || isNaN(ver) ? [1] : props.state.tiros.encestos;
+  let label = ver === 0 || isNaN(ver) ? ['Sin datos'] : ['Encesto', 'No encesto'];
   let options = {
-        options: {},
-        series: serie,
-        chartOptions: {
-            labels: label,
-        },
-    };
-
+    options: {},
+    series: serie,
+    chartOptions: {
+      labels: label,
+    },
+  };
 
   return (
-    <div className={classes.root}>
+    <div>
+      <Paper elevation={3}>
         <Charts
-            options={options.chartOptions}
-            series={options.series}
-            type="pie"
-            width="400"
+          options={options.chartOptions}
+          series={options.series}
+          type="pie"
+          width="400"
         />
+      </Paper>
     </div>
   );
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PieChart);
+export default PieChart;
 //

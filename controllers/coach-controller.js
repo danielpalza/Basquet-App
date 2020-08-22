@@ -22,7 +22,7 @@ const login = async (req, res) => {
             expiresIn: 60 * 120,
           }
         );
-        res.send({ status: 'OK', data: { token, expiresIn: 60 * 60 } });
+        res.send({ status: 'OK', data: { token, expiresIn: 60 * 60 , email } });
       } else {
         throw { message: 'INVALID_PASSWORD'}
       }

@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   makeStyles,
   useTheme,
   CssBaseline,
   Box,
-  Snackbar,
-  IconButton
+  Grid,
+  Paper,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import Barra from './Barra';
-import PieChart from "./Graficos/PieChart"
-import AgregarPlayer from "./Botones/AgregarPlayer"
-import AgregarTiro from "./Botones/AgregarTiro"
+import PieChart from './Graficos/PieChart';
+import LineChart from './Graficos/LineChart';
+import ListaEventos from './ListaEventos';
+import AgregarPlayer from './Botones/AgregarPlayer';
+import AgregarTiro from './Botones/AgregarTiro';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../../store/stats/reducer';
 import { mapDispatchToProps } from '../../store/stats/actions';
@@ -25,6 +27,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
   },
+  paper: {
+    padding: '2vw',
+
+  },
+  element: {
+    margin: '1vw',
+  },
+
   toolbar: theme.mixins.toolbar,
 }));
 
@@ -32,6 +42,7 @@ function Main(props) {
   //Guardado de token nuevo
   if (props.state.statReducer.user.token !== undefined) {
     localStorage.setItem('token', props.state.statReducer.user.token);
+    localStorage.setItem('lastUserLogin', props.state.statReducer.user.email);
   }
   const token = props.state.statReducer.user.token
     ? props.state.statReducer.user.token
@@ -42,7 +53,7 @@ function Main(props) {
 
   const [open, setOpen] = useState(false);
   const [ruta, setRuta] = useState('');
-  console.log("ruta:",ruta)
+
   //Metodos
   const handleRoute = (prop) => {
     setRuta(prop);
@@ -51,7 +62,6 @@ function Main(props) {
   const handleDrawer = () => {
     setOpen(!open);
   };
-
 
   //cierre de sesion
   const handleCloseSession = () => {
@@ -66,14 +76,37 @@ function Main(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Barra handleCloseSession={handleCloseSession} handleRoute={handleRoute} handleDrawer={handleDrawer} val={open} />
-      <AgregarTiro open={ruta=="TIRO"} handleRoute={handleRoute}/>
-      <AgregarPlayer  open={ruta=="PLAYER"} handleRoute={handleRoute} />
+      <Barra
+        handleCloseSession={handleCloseSession}
+        handleRoute={handleRoute}
+        handleDrawer={handleDrawer}
+        val={open}
+      />
+      <AgregarTiro
+        open={ruta == 'TIRO'}
+        action={props}
+        handleRoute={handleRoute}
+      />
+      <AgregarPlayer
+        open={ruta == 'PLAYER'}
+        action={props}
+        handleRoute={handleRoute}
+      />
       <Box className={classes.content}>
         <Box className={classes.toolbar}></Box>
-          <PieChart/>
-        <Box>
-        </Box>
+        <Paper className={classes.paper} elevation={3}>
+          <Grid container spacing={3}>
+            <Grid item xs>
+              <ListaEventos />
+            </Grid>
+            <Grid item xs>
+              <PieChart action={props} state={props.state.statReducer} />
+            </Grid>
+            <Grid item xs>
+              <LineChart action={props} state={props.state.statReducer} />
+            </Grid>
+          </Grid>
+        </Paper>
       </Box>
     </div>
   );

@@ -1,7 +1,7 @@
 const iniState = {
   players: [],
-  tiros:[],
-  user: { username: '' , token: '' },
+  tiros: { encestos: [], tiradores: [], tiros: [], tirosRaw: [] },
+  user: { email: '', token: '' },
   body: {},
   fetch: false,
   reload: true,
@@ -16,7 +16,7 @@ export default function Reducer(state = iniState, action) {
   if (action.type === 'USER_LOGIN') {
     return Object.assign({}, state, {
       ...state,
-      user: { ...state.user, token: action.stat.data.token },
+      user: { email: action.stat.data.email, token: action.stat.data.token },
       logged: true,
     });
   }
@@ -35,7 +35,6 @@ export default function Reducer(state = iniState, action) {
       tiros: action.stat.data,
     });
   }
-
   // Carga de jugadores
 
   if (action.type === 'PLAYER_LOAD') {

@@ -1,9 +1,10 @@
 const express = require('express');
 const { isAuth, isValidHostname } = require('../../middlewares/auth');
-const playerController = require('../../controllers/player-controller');
+const tiroController = require('../../controllers/tiro-controller');
 const routes = express.Router();
 
-routes.post('/createPlayer',isValidHostname, isAuth, playerController.createPlayer);
-routes.get('/getAllPlayer',isValidHostname, isAuth, playerController.getAllPlayer);
+routes.post('/createTiro',isValidHostname, isAuth, tiroController.createTiro);
+routes.get('/getAllTiro',isValidHostname, isAuth, tiroController.getAllTiro);
+
 
 module.exports = routes;

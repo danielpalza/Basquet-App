@@ -35,17 +35,17 @@ function AgregarPlayer(props) {
     lastName:'',
     legajo: '',
   })
-
+  
   const handleChange = (event) => {
-    event.target.name === 'fistName' &&
-      setPlayer({ ...player, fistName: event.target.value });
+    event.target.name === 'firstName' &&
+      setPlayer({ ...player, firstName: event.target.value });
     event.target.name === 'lastName' &&
         setPlayer({ ...player, lastName: event.target.value });
     event.target.name === 'legajo' &&
         setPlayer({ ...player, legajo: event.target.value });
   };
 
-  const CargarPlayer = () => {
+  async function CargarPlayer () {
     const state = {
       body: { ...player},
       use: ['player', 'createPlayer'],
@@ -54,9 +54,9 @@ function AgregarPlayer(props) {
       action: 'MESSAGE_IN',
     };
     props.action.loadBody(state);
-    props.action.fetchTrue();
+    await props.action.fetchTrue();
     props.action.reloadTrue();
-    HandleRoute();
+    props.handleRoute("");
   };
 
   return (
@@ -69,7 +69,7 @@ function AgregarPlayer(props) {
       <div className={classes.box}>
         <TextField
           id="filled-basic"
-          name="fistName"
+          name="firstName"
           label="Nombre"
           variant="filled"
           onChange={handleChange}

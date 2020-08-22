@@ -3,18 +3,19 @@ const Tiro = require('../mongo/models/tiro-mongo');
 
 const createTiro = async (req, res) => {
   try {
-    const { idCoach, tirador, posicion, encesto,distanciaM } = req.body;
+    const { token } = req.headers;
+    const { payload } = jwt.decode(token, { complete: true });
+    const { tirador, posicion, encesto, distanciaM } = req.body;
 
     const tiro = new Tiro();
-      tiro.idCoach= idCoach;
-        tiro.tirador= tirador;
-          tiro.posicion= posicion;
-            tiro.encesto= encesto;
-              tiro.distanciaM= distanciaM;
-      await tiro.save();
+    tiro.idCoach = payload._id
+    tiro.tirador = tirador;
+    tiro.posicion = posicion;
+    tiro.encesto = encesto;
+    tiro.distanciaM = distanciaM;
+    await tiro.save();
 
     res.send({ status: 'OK', message: 'Tiro guardado' });
-
   } catch (error) {
     res.status(400).send({ status: 'ERROR', message: error.message });
   }
@@ -24,16 +25,51 @@ const getAllTiro = async (req, res) => {
   try {
     const { token } = req.headers;
     const { payload } = jwt.decode(token, { complete: true });
-    const query = await Tiro.find({ idCoach: payload._id });
-    res.send({ status: 'OK', data: query });
+    const tirosRaw = await Tiro.find({ idCoach: payload._id });
+    let exitos = 0;
+    let fallos = 0;
+    let tiradores = [];
+    let tiros = [];
+    
+    //Tiradores y sus tiros
+    tirosRaw.map((a, index, array) => {
+      console.log("a",a)
+      tiradores.push(a.tirador);
+      let cantidadTiros = 0;
+      array.map((e) => {
+        console.log("e",e)
+
+        if (a.tirandor == e.tirador) {
+          cantidadTiros++;
+        }
+      });
+      tiros.push(cantidadTiros);
+    });
+
+   
+    tirosRaw.map((a) =>a.encesto=="true" ? exitos++ : fallos++);
+      console.log("datos:",  { tirosRaw, tiros, tiradores, encestos:[exitos,fallos] } )
+    res.send({ status: 'OK', data: { tirosRaw, tiros, tiradores, encestos:[exitos,fallos] } });
   } catch (e) {
     res.send({ status: 'ERROR', message: e.message });
   }
 };
 
 
+/*const getEachPlayerTiro = async (req, res) => {
+  try {
+    const { token } = req.headers;
+    const { payload } = jwt.decode(token, { complete: true });
+    const tirosRaw = await Tiro.find({ idCoach: payload._id });
+
+   
+    res.send({ status: 'OK', data: {tirador,tiros} });
+  } catch (e) {
+    res.send({ status: 'ERROR', message: e.message });
+  }
+};*/
+
 module.exports = {
   createTiro,
-  getAllTiro,
-
+  getAllTiro
 };

@@ -1,12 +1,9 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable no-var */
-/* eslint-disable no-confusing-arrow */
-/* eslint-disable linebreak-style */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../store/stats/reducer';
 import { mapDispatchToProps } from '../store/stats/actions';
 
+//Manejo de pedidos generales a la api y la store
 function Fetch(props) {
   const token = props.state.statReducer.user.token;
   const body = props.state.statReducer.body;
@@ -49,10 +46,8 @@ function Fetch(props) {
 
   //Funcion asincrona
   async function Fetching() {
-    /**User routes */
+    //Ruta a usar
     const urlUse = `api/v1/${body.use[0]}/${body.use[1]}`;
-
-    // arreglar fallas en envios
     const myInitPost = {
       method: body.mod,
       body: JSON.stringify(body.body),
@@ -75,20 +70,23 @@ function Fetch(props) {
       urlUse,
       body.mod === 'POST' ? myInitPost : myInitGet
     );
-      console.log("Fetch:" , props)
-    await fetch(myRequest)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('data fetch:', data);
-        action(data);
-        props.fetchFalse();
-      })
-      .catch((e) => console.log({ Status: 'ERROR_FETCH', message: e }));
+
+    //Peticion
+    if (props.state.statReducer.fetch) {
+      await fetch(myRequest)
+        .then((res) => res.json())
+        .then((data) => {
+          action(data);
+          props.fetchFalse();
+        })
+        .catch((e) => console.log({ Status: 'ERROR_FETCH', message: e }));
+    }
   }
 
-  if (props.state.statReducer.fetch) {
+  //Ejecuta un pedido
+  useEffect(() => {
     Fetching();
-  }
+  }, [props.state.statReducer.fetch]);
   return <span></span>;
 }
 

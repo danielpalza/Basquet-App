@@ -7,9 +7,11 @@ import { connect } from 'react-redux';
 import { mapStateToProps } from '../store/stats/reducer';
 import { mapDispatchToProps } from '../store/stats/actions';
 
+//Muestra mensajes generales
 function Snack(props) {
   let message = props.state.statReducer.message;
 
+  //Maneja el cierre del mensaje
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

@@ -8,12 +8,11 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@material-ui/core';
-import Fetch from "./FetchBotones"
+import Fetch from './FetchBotones';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
-//Carga de estilo
-
+//Estilos
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -29,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+
 let posiciones = [
   {
     value: 'puntaIzq',
@@ -52,14 +53,14 @@ let posiciones = [
   },
 ];
 
-//Funcion agregar
-
+//Agrega un nuevo tiro
 function AgregarTiro(props) {
-  console.log('agregar tiro props:', props);
   let players =
     props.action.state.statReducer.players.length === 0
-      ? [{value:'Seleccione'}]
-      : props.action.state.statReducer.players.map((a) => {return {value:`${a.firstName} ${a.lastName}`}});
+      ? [{ value: 'Seleccione' }]
+      : props.action.state.statReducer.players.map((a) => {
+          return { value: `${a.firstName} ${a.lastName}` };
+        });
   const classes = useStyles();
   const [tiro, setTiro] = useState({
     tirador: '',
@@ -67,7 +68,8 @@ function AgregarTiro(props) {
     encesto: false,
     posicion: '',
   });
-  console.log("tiro:", tiro)
+
+  //Manejo de cambios en el estado
   const handleChange = (event) => {
     event.target.name === 'tirador' &&
       setTiro({ ...tiro, tirador: event.target.value });
@@ -78,8 +80,26 @@ function AgregarTiro(props) {
     event.target.name === 'posicion' &&
       setTiro({ ...tiro, posicion: event.target.value });
   };
-  async function CargarTiradores () {
 
+  //Validacion de datos
+  function ValidacionTiro() {
+    tiro.posicion.length == 0 &&
+      props.action.messageIn({ message: 'Ingrese la posicion' });
+    tiro.distanciaM == 0 &&
+      props.action.messageIn({ message: 'Ingrese la distancia' });
+    tiro.tirador.length == 0 &&
+      props.action.messageIn({ message: 'Ingrese un tirador' });
+    if (
+      tiro.tirador.length != 0 &&
+      tiro.distanciaM > 0 &&
+      tiro.posicion.length != 0
+    ) {
+      CargarTiro();
+    }
+  }
+
+  //Carga de tiradores
+  async function CargarTiradores() {
     const state = {
       body: {},
       use: ['player', 'getAllPlayer'],
@@ -87,13 +107,13 @@ function AgregarTiro(props) {
       token: props.action.state.statReducer.user.token,
       action: props.action.playerLoad,
     };
-    
-    await Fetch(state);
-    props.action.reloadFalse()
-   
-  };
 
-  async function CargarTiro () {
+    await Fetch(state);
+    props.action.reloadFalse();
+  }
+
+  //Carga de nuevo tiro
+  async function CargarTiro() {
     const state = {
       body: { ...tiro },
       use: ['tiro', 'createTiro'],
@@ -101,18 +121,17 @@ function AgregarTiro(props) {
       token: props.action.state.statReducer.user.token,
       action: props.action.messageIn,
     };
-    
+
     await Fetch(state);
     props.action.reloadTrue();
     props.handleRoute('');
-  };
+  }
 
- useEffect(()=>{
-    CargarTiradores()
-  },[props.action.state.statReducer.reload])
-  
-  
- 
+  //Actualiza los tiradores si surgio un cambio
+  useEffect(() => {
+    CargarTiradores();
+  }, [props.action.state.statReducer.reload]);
+
   return (
     <Dialog
       open={props.open}
@@ -178,7 +197,7 @@ function AgregarTiro(props) {
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
-            onClick={CargarTiro}
+            onClick={() => ValidacionTiro()}
           >
             Agregar
           </Button>

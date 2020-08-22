@@ -1,15 +1,17 @@
 const jwt = require('jsonwebtoken');
 
+//Valida el host del pedido
 const isValidHostname = (req, res, next) => {
-  const hostValid = [ 'localhost'];
+  const hostValid = ['localhost'];
 
   if (hostValid.includes(req.hostname)) {
-      next();
+    next();
   } else {
-      res.status(403).send({ status: 'ACCESS_DENIED', message: "WRONG_HOST" });
+    res.status(403).send({ status: 'ACCESS_DENIED', message: 'WRONG_HOST' });
   }
 };
 
+//Verifica que el token enviado sea correcto
 const isAuth = (req, res, next) => {
   try {
     const { token } = req.headers;
@@ -20,11 +22,9 @@ const isAuth = (req, res, next) => {
       throw {
         code: 403,
         status: 'ACCESS_DENIED',
-        message: 'missing header: token'
+        message: 'missing header: token',
       };
     }
-
-
   } catch (e) {
     res
       .status(e.code || 500)
@@ -32,5 +32,4 @@ const isAuth = (req, res, next) => {
   }
 };
 
-
-module.exports = { isAuth, isValidHostname};
+module.exports = { isAuth, isValidHostname };

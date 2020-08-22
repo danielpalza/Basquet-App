@@ -4,15 +4,15 @@ import { Paper } from '@material-ui/core';
 import Charts from 'react-apexcharts';
 import Fetch from "./FetchGraficos"
 
+//Estilos
 const useStyle = makeStyles((theme) => ({
   root: {
     width: '30vw',
   },
 }));
 
+//Genera un grafico de barras para los jugadores y sus tiros
 function LineChart(props) {
-  console.log('props Linechart:', props);
-
   const classes = useStyle();
   const [body, setBody] = useState({
     body: {},
@@ -21,6 +21,8 @@ function LineChart(props) {
     action: props.action.tiroLoad,
     token: props.state.user.token,
   });
+
+  //Actualiza el grafico si surgio un cambio
   async function handleFetch(){
     await Fetch(body)
     props.action.reloadFalse()
@@ -31,6 +33,7 @@ function LineChart(props) {
   },[props.state.reload])
 
 
+  //Variables y opciones para el grafico
   let serie =
     props.state.tiros.tiros.length === 0 ? [0] : props.state.tiros.tiros;
   let label =

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, TextField, Button, Box } from '@material-ui/core';
 
+//Estilo
 const useStyle = makeStyles((theme) => ({
   boxText: {
     display: 'flex',
@@ -9,10 +10,11 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
+//Registro de nuevos usuarios
 const RegisterBox = (props) => {
   const classes = useStyle();
-  const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [click, setClick] = useState(false);
   const [user, setUser] = useState({
     body: { email: '', password: '', confirmacion: '', name: '', lastName: '' },
     use: ['coach', 'createCoach'],
@@ -22,9 +24,13 @@ const RegisterBox = (props) => {
 
   //Verificamos que las claves sean iguales
   const handleConfirmacion = () => {
-    user.body.password === user.body.confirmacion && props.userLoad(user);
+    if(user.body.password === user.body.confirmacion){
+      setClick(true)
+      props.setRuta('LOGIN');
+      props.userLoad(user);
+    }
     user.body.password !== user.body.confirmacion &&
-      props.handleClick('Las contraseñas no son iguales');
+      props.handleClick({message:'Las contraseñas no son iguales'});
   };
 
   return (
@@ -105,9 +111,10 @@ const RegisterBox = (props) => {
         <Box m={2}>
           <Button
             fullWidth
+            disabled={click}
             variant="contained"
             color="primary"
-            onClick={(e) => {
+            onClick={() => {
               handleConfirmacion();
             }}
           >

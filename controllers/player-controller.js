@@ -1,12 +1,16 @@
 const jwt = require('jsonwebtoken');
 const Player = require('../mongo/models/player-mongo');
 
+//Crea un nuevo jugador 
 const createPlayer = async (req, res) => {
   try {
     const { token } = req.headers;
     const { payload } = jwt.decode(token, { complete: true });
 
     const { firstName, lastName, legajo } = req.body;
+
+    firstName=firstName.charAt(0).toUpperCase() + firstName.slice(1);
+    lastName=lastName.charAt(0).toUpperCase() + lastName.slice(1);
 
     const player = new Player();
     player.firstName = firstName;
@@ -25,6 +29,7 @@ const createPlayer = async (req, res) => {
   }
 };
 
+//Retorna todos los jugadores
 const getAllPlayer = async (req, res) => {
   try {
     const { token } = req.headers;

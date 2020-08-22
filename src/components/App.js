@@ -11,8 +11,6 @@ import Main from './Main/Main.js';
 function App(props) {
   const logged = props.state.statReducer.logged;
 
-  //return( <React.Fragment>{logged ? <Home/> : <Login/>}</React.Fragment>);
-
   return (
     <React.Fragment>
       <ThemeProvider theme={Theme}>

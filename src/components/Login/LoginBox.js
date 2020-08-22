@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, TextField, Button, Box } from '@material-ui/core';
 
+//Estilo
 const useStyle = makeStyles((theme) => ({
   boxText: {
     display: 'flex',
@@ -9,6 +10,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
+//Inicio de sesion
 const LoginBox = (props) => {
   const classes = useStyle();
   const [user, setUser] = useState({

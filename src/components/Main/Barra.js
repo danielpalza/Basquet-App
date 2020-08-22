@@ -18,8 +18,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Basketball from './Icons/basketball.svg';
 import Jersey from './Icons/jersey.svg';
 
+//Estilos
 const drawerWidth = 240;
-
 const useStyle = makeStyles((theme) => ({
   menuButton: {
     marginRight: 36,
@@ -35,11 +35,12 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
+//Barra de herramientas superior
 const Barra = (props) => {
-  console.log('barra props:', props);
   const classes = useStyle();
   const anchorRef = React.useRef(null);
 
+  //Manejo de cierre del menu de usuario
   const handleClose = () => {
     props.handleDrawer();
   };

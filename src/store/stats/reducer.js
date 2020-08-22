@@ -10,9 +10,7 @@ const iniState = {
 };
 
 export default function Reducer(state = iniState, action) {
-  console.log('action data:', action);
   /*Acciones login*/
-
   if (action.type === 'USER_LOGIN') {
     return Object.assign({}, state, {
       ...state,
@@ -35,8 +33,8 @@ export default function Reducer(state = iniState, action) {
       tiros: action.stat.data,
     });
   }
-  // Carga de jugadores
 
+  // Carga de jugadores
   if (action.type === 'PLAYER_LOAD') {
     return Object.assign({}, state, {
       ...state,
@@ -55,6 +53,7 @@ export default function Reducer(state = iniState, action) {
       reload: false,
     });
   }
+
   //Mensajes
   if (action.type === 'MESSAGE_IN') {
     console.log('mensaje in: ', action.stat.message);

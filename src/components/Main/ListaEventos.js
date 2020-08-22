@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+//Estilo
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -26,6 +27,14 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
+const useStyles = makeStyles({
+  table: {
+    minWidth: 300,
+    maxWidth: 500,
+  },
+});
+
+// Carga de datos para la lista de eventos pasados
 // Cambiar rows por los datos que se quieran mostrar
 let rows = [
   { name: '2° Amistoso' },
@@ -36,13 +45,7 @@ let rows = [
   { name: 'Partido de inauguración' },
 ];
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 300,
-    maxWidth: 500,
-  },
-});
-
+//Crea una lista con los eventos pasados
 const ListaEventos = () => {
   const classes = useStyles();
   return (
@@ -56,7 +59,7 @@ const ListaEventos = () => {
         <TableBody>
           {rows.map((row) => (
             <StyledTableRow key={row.name}>
-              <StyledTableCell >{row.name}</StyledTableCell>
+              <StyledTableCell>{row.name}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

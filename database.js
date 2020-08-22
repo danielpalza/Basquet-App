@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const dotenv = require('dotenv'); 
 
+//Carga de datos de conexion a la base
 mongoose.set('useFindAndModify', false)
         .set('useCreateIndex', true);
 

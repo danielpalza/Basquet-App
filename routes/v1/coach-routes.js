@@ -1,5 +1,5 @@
 const express = require('express');
-const { isAuth, isValidHostname } = require('../../middlewares/auth');
+const { isValidHostname } = require('../../middlewares/auth');
 const coachController = require('../../controllers/coach-controller');
 const routes = express.Router();
 

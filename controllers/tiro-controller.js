@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Tiro = require('../mongo/models/tiro-mongo');
 
+//Crea un nuevo tiro
 const createTiro = async (req, res) => {
   try {
     const { token } = req.headers;
@@ -8,7 +9,7 @@ const createTiro = async (req, res) => {
     const { tirador, posicion, encesto, distanciaM } = req.body;
 
     const tiro = new Tiro();
-    tiro.idCoach = payload._id
+    tiro.idCoach = payload._id;
     tiro.tirador = tirador;
     tiro.posicion = posicion;
     tiro.encesto = encesto;
@@ -21,6 +22,7 @@ const createTiro = async (req, res) => {
   }
 };
 
+//Devuelve todos los tiros y varias estadisticas de estos
 const getAllTiro = async (req, res) => {
   try {
     const { token } = req.headers;
@@ -35,28 +37,23 @@ const getAllTiro = async (req, res) => {
     tirosRaw.map((a, index, array) => {
       let cantidadTiros = 0;
 
-      if(!tiradores.includes(a.tirador)){
-
+      if (!tiradores.includes(a.tirador)) {
         array.map((e) => {
-
-            if (a.tirador == e.tirador ){
-              cantidadTiros++;
-            }
-
-
-
-      })
-      tiradores.push(a.tirador);
-      tiros.push(cantidadTiros);
-
+          if (a.tirador == e.tirador) {
+            cantidadTiros++;
+          }
+        });
+        tiradores.push(a.tirador);
+        tiros.push(cantidadTiros);
       }
-
-
     });
 
     //Aciertos de los encestos
-    tirosRaw.map((a) =>a.encesto=="true" ? exitos++ : fallos++);
-    res.send({ status: 'OK', data: {tirosRaw, tiros, tiradores, encestos:[exitos,fallos] } });
+    tirosRaw.map((a) => (a.encesto == 'true' ? exitos++ : fallos++));
+    res.send({
+      status: 'OK',
+      data: { tirosRaw, tiros, tiradores, encestos: [exitos, fallos] },
+    });
   } catch (e) {
     res.send({ status: 'ERROR', message: e.message });
   }
@@ -64,5 +61,5 @@ const getAllTiro = async (req, res) => {
 
 module.exports = {
   createTiro,
-  getAllTiro
+  getAllTiro,
 };

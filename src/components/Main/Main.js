@@ -7,7 +7,6 @@ import {
   Grid,
   Paper,
 } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 import Barra from './Barra';
 import PieChart from './Graficos/PieChart';
 import LineChart from './Graficos/LineChart';
@@ -18,6 +17,7 @@ import { connect } from 'react-redux';
 import { mapStateToProps } from '../../store/stats/reducer';
 import { mapDispatchToProps } from '../../store/stats/actions';
 
+//Estilo
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: '2vw',
-
   },
   element: {
     margin: '1vw',
@@ -38,41 +37,35 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
 }));
 
+//Crea el contenedor principal de elementos
 function Main(props) {
-  //Guardado de token nuevo
-  if (props.state.statReducer.user.token !== undefined) {
-    localStorage.setItem('token', props.state.statReducer.user.token);
+  //Se guarda el email del usuario
+  if (props.state.statReducer.user.email !== undefined) {
     localStorage.setItem('lastUserLogin', props.state.statReducer.user.email);
   }
-  const token = props.state.statReducer.user.token
-    ? props.state.statReducer.user.token
-    : localStorage.getItem('token');
-
+  const token = props.state.statReducer.user.token;
   const classes = useStyles();
   const theme = useTheme();
-
   const [open, setOpen] = useState(false);
   const [ruta, setRuta] = useState('');
 
-  //Metodos
+  //Manejo el elemento que se muestra
   const handleRoute = (prop) => {
     setRuta(prop);
   };
 
+  //Manejo del menu de usuario
   const handleDrawer = () => {
     setOpen(!open);
   };
 
-  //cierre de sesion
+  //Manejo del cierre de sesion
   const handleCloseSession = () => {
     localStorage.setItem('token', '');
     props.unLogin();
   };
   ruta === 'OUT' && handleCloseSession();
 
-  // Enviar datos del navbar a agregar
-  // O poner "agregar" aqui
-  //Crear tabla y navegacion
   return (
     <div className={classes.root}>
       <CssBaseline />

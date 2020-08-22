@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import { connect } from 'react-redux';
-import { mapStateToProps } from '../../../store/stats/reducer';
-import { mapDispatchToProps } from '../../../store/stats/actions';
 import { Paper } from '@material-ui/core';
 import Charts from 'react-apexcharts';
 
+//Estilos
 const useStyle = makeStyles((theme) => ({
   root: {
     width: '80vw',
   },
 }));
 
+//Genera un grafico pie para los aciertos y fallos de encesto
 function PieChart(props) {
-  console.log('props piechart:', props);
   let ver = props.state.tiros.encestos[0] + props.state.tiros.encestos[1];
   const classes = useStyle();
-  console.log('ver:', ver);
   let serie = ver === 0 || isNaN(ver) ? [1] : props.state.tiros.encestos;
-  let label = ver === 0 || isNaN(ver) ? ['Sin datos'] : ['Encesto', 'No encesto'];
+  let label =
+    ver === 0 || isNaN(ver) ? ['Sin datos'] : ['Encesto', 'No encesto'];
   let options = {
     options: {},
     series: serie,

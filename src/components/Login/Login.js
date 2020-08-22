@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles, Button, Box, Snackbar } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Snack from '../Snack';
+import { makeStyles, Box } from '@material-ui/core';
 import LoginBox from './LoginBox';
 import RegisterBox from './RegisterBox';
-import Fetch from '../Fetch';
 import LastUser from './LastUser';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../../store/stats/reducer';
 import { mapDispatchToProps } from '../../store/stats/actions';
 
+//Estilo
 const useStyle = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -27,8 +24,9 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
+// Manejo de los inicio de sesion y registros de nuevos usuarios
 function Login(props) {
-  const [ruta, setRuta] = useState("LOGIN");
+  const [ruta, setRuta] = useState('LOGIN');
   const classes = useStyle();
 
   // Manejo de faltas
@@ -36,6 +34,7 @@ function Login(props) {
     props.messageIn(text);
   }
 
+  //Carga de datos 
   function userLoad(user) {
     if (
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -49,15 +48,15 @@ function Login(props) {
     }
   }
 
-  useEffect(()=>{
+  //Si existen, uso de ultima conexion
+  useEffect(() => {
     if (
       localStorage.getItem('lastUserLogin') !== '' &&
       localStorage.getItem('lastUserLogin') !== null
     ) {
       setRuta('LASTUSER');
     }
-  },[])
-  console.log("last user:", localStorage.getItem('lastUserLogin') )
+  }, []);
 
   return (
     <Box className={classes.root}>

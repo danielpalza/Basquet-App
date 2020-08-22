@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
-import { makeStyles, TextField, Button, Box, Typography } from '@material-ui/core';
+import {
+  makeStyles,
+  TextField,
+  Button,
+  Box,
+  Typography,
+} from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
+//Estilo
 const useStyle = makeStyles((theme) => ({
   boxText: {
     display: 'flex',
-    flexDirection:"column",
-    alignItems:"center",
+    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
     padding: theme.spacing(3),
   },
 }));
 
-const LastUser= (props) => {
+// Carga datos de la ultima conexion
+const LastUser = (props) => {
   const classes = useStyle();
-  let email= localStorage.getItem('lastUserLogin')
+  let email = localStorage.getItem('lastUserLogin');
   const [user, setUser] = useState({
     body: { email: email, password: '' },
     use: ['coach', 'login'],
@@ -23,7 +31,7 @@ const LastUser= (props) => {
     action: 'USER_LOGIN',
   });
 
-  // Manejo de faltas, pasar al login mayor
+  // Manejo de faltas
   const handleConfirmacion = () => {
     user.body.password.length === 0 &&
       props.handleClick('Debe ingresar una contraseña');
@@ -33,8 +41,10 @@ const LastUser= (props) => {
   return (
     <div>
       <Box className={classes.boxText} m={3}>
-       <AccountCircle style={{ fontSize: "7vw", margin:"1vw" }} />
-        <Typography variant="h5" align="center">{email}</Typography>
+        <AccountCircle style={{ fontSize: '7vw', margin: '1vw' }} />
+        <Typography variant="h5" align="center">
+          {email}
+        </Typography>
       </Box>
       <Box className={classes.boxText} m={3}>
         <TextField
@@ -78,7 +88,6 @@ const LastUser= (props) => {
         <Box m={2}>
           <Button
             fullWidth={true}
-            
             color="secondary"
             onClick={(e) => {
               props.setRuta('LOGIN');

@@ -30,44 +30,37 @@ const getAllTiro = async (req, res) => {
     let fallos = 0;
     let tiradores = [];
     let tiros = [];
-    
+
     //Tiradores y sus tiros
     tirosRaw.map((a, index, array) => {
-      console.log("a",a)
-      tiradores.push(a.tirador);
       let cantidadTiros = 0;
-      array.map((e) => {
-        console.log("e",e)
 
-        if (a.tirandor == e.tirador) {
-          cantidadTiros++;
-        }
-      });
+      if(!tiradores.includes(a.tirador)){
+
+        array.map((e) => {
+
+            if (a.tirador == e.tirador ){
+              cantidadTiros++;
+            }
+
+
+
+      })
+      tiradores.push(a.tirador);
       tiros.push(cantidadTiros);
+
+      }
+
+
     });
 
-   
+    //Aciertos de los encestos
     tirosRaw.map((a) =>a.encesto=="true" ? exitos++ : fallos++);
-      console.log("datos:",  { tirosRaw, tiros, tiradores, encestos:[exitos,fallos] } )
-    res.send({ status: 'OK', data: { tirosRaw, tiros, tiradores, encestos:[exitos,fallos] } });
+    res.send({ status: 'OK', data: {tirosRaw, tiros, tiradores, encestos:[exitos,fallos] } });
   } catch (e) {
     res.send({ status: 'ERROR', message: e.message });
   }
 };
-
-
-/*const getEachPlayerTiro = async (req, res) => {
-  try {
-    const { token } = req.headers;
-    const { payload } = jwt.decode(token, { complete: true });
-    const tirosRaw = await Tiro.find({ idCoach: payload._id });
-
-   
-    res.send({ status: 'OK', data: {tirador,tiros} });
-  } catch (e) {
-    res.send({ status: 'ERROR', message: e.message });
-  }
-};*/
 
 module.exports = {
   createTiro,

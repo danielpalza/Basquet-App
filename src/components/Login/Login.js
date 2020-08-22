@@ -51,13 +51,13 @@ function Login(props) {
 
   useEffect(()=>{
     if (
-      localStorage.getItem('lastUserLogin') !== '' ||
+      localStorage.getItem('lastUserLogin') !== '' &&
       localStorage.getItem('lastUserLogin') !== null
     ) {
       setRuta('LASTUSER');
     }
   },[])
-  
+  console.log("last user:", localStorage.getItem('lastUserLogin') )
 
   return (
     <Box className={classes.root}>

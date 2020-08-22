@@ -13,8 +13,6 @@ const createPlayer = async (req, res) => {
     player.lastName = lastName;
     player.legajo = legajo;
     player.idCoach = payload._id;
-    console.log('player new:', player);
-
     await player.save();
 
     res.send({ status: 'OK', message: 'Jugador creado' });
@@ -32,7 +30,6 @@ const getAllPlayer = async (req, res) => {
     const { token } = req.headers;
     const { payload } = jwt.decode(token, { complete: true });
     const query = await Player.find({ idCoach: payload._id });
-    console.log('query:', query);
     res.send({ status: 'OK', data: query });
   } catch (e) {
     res.send({ status: 'ERROR', message: e.message });

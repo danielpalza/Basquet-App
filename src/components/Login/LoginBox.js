@@ -20,12 +20,16 @@ const LoginBox = (props) => {
     action: 'USER_LOGIN',
   });
 
-  // Manejo de faltas, pasar al login mayor
-
+  // Manejo de faltas
   const handleConfirmacion = () => {
     user.body.password.length === 0 &&
-      props.handleClick('Debe ingresar una contraseña');
-    user.body.password.length > 0 && props.userLoad(user);
+      props.handleClick({message:'Debe ingresar una contraseña'});
+    user.body.email.length === 0 &&
+      props.handleClick({message:'Debe ingresar un email'});  
+      if( user.body.password.length > 0 &&  user.body.email.length > 0){
+        props.userLoad(user);
+      }
+    
   };
 
   return (

@@ -42,14 +42,14 @@ const createCoach = async (req, res) => {
     const { password, email, name, lastName } = req.body;
     const salt = 10;
 
-    name = name[0].toUpperCase() + name.slice(1);
-    lastName = lastName[0].toUpperCase() + lastName.slice(1);
+    let newName = name[0].toUpperCase() + name.slice(1);
+    let newLastName = lastName[0].toUpperCase() + lastName.slice(1);
 
     const coach = new Coach();
 
     coach.password = await bcrypt.hash(password, salt);
-    coach.firstName = name;
-    coach.lastName = lastName;
+    coach.firstName = newName;
+    coach.lastName = newLastName;
     coach.email = email;
 
     await coach.save();

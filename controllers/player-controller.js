@@ -9,8 +9,8 @@ const createPlayer = async (req, res) => {
 
     const { firstName, lastName, legajo } = req.body;
 
-    firstName=firstName.charAt(0).toUpperCase() + firstName.slice(1);
-    lastName=lastName.charAt(0).toUpperCase() + lastName.slice(1);
+    firstName=firstName[0].toUpperCase() + firstName.slice(1);
+    lastName=lastName[0].toUpperCase() + lastName.slice(1);
 
     const player = new Player();
     player.firstName = firstName;

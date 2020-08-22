@@ -42,8 +42,8 @@ const createCoach = async (req, res) => {
     const { password, email, name, lastName } = req.body;
     const salt = 10;
 
-    name = name.charAt(0).toUpperCase() + name.slice(1);
-    lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1);
+    name = name[0].toUpperCase() + name.slice(1);
+    lastName = lastName[0].toUpperCase() + lastName.slice(1);
 
     const coach = new Coach();
 

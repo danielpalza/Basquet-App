@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 //Valida el host del pedido
 const isValidHostname = (req, res, next) => {
-  const hostValid = ['localhost'];
+  const hostValid = ['baloncesto-app.herokuapp.com','localhost'];
 
   if (hostValid.includes(req.hostname)) {
     next();

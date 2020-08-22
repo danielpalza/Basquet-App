@@ -13,7 +13,6 @@ const useStyle = makeStyles((theme) => ({
 //Registro de nuevos usuarios
 const RegisterBox = (props) => {
   const classes = useStyle();
-  const [message, setMessage] = useState('');
   const [click, setClick] = useState(false);
   const [user, setUser] = useState({
     body: { email: '', password: '', confirmacion: '', name: '', lastName: '' },
@@ -24,13 +23,25 @@ const RegisterBox = (props) => {
 
   //Verificamos que las claves sean iguales
   const handleConfirmacion = () => {
-    if(user.body.password === user.body.confirmacion){
-      setClick(true)
+    user.body.lastName.length === 0 &&
+      props.handleClick({ message: 'Ingrese un Apellido' });
+    user.body.name.length === 0 &&
+      props.handleClick({ message: 'Ingrese un Nombre' });
+    user.body.password !== user.body.confirmacion &&
+      props.handleClick({ message: 'Las contraseñas no son iguales' });
+    user.body.password.length === 0 &&
+      props.handleClick({ message: 'Ingrese una contraseña' });
+    user.body.email.length === 0 &&
+      props.handleClick({ message: 'Ingrese un email' });
+    if (
+      user.body.password === user.body.confirmacion &&
+      user.body.password.length > 0 &&
+      user.body.lastName.length > 0
+    ) {
+      setClick(true);
       props.setRuta('LOGIN');
       props.userLoad(user);
     }
-    user.body.password !== user.body.confirmacion &&
-      props.handleClick({message:'Las contraseñas no son iguales'});
   };
 
   return (
